@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argonaut-deployment
+  labels:
+    app: argonaut
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: argonaut
+  template:
+    metadata:
+      labels:
+        app: argonaut
+    spec:
+      containers:
+        - name: argonaut
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
