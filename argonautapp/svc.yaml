@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: argonaut
-    version: green
+    version: blue
   ports:
     - protocol: TCP
       port: 80
