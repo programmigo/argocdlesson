@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argonaut-deployment
+  name: argonaut-deployment-blue
   labels:
     app: argonaut
     version: blue
@@ -41,7 +41,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argonaut-deployment
+  name: argonaut-deployment-green
   labels:
     app: argonaut
     version: green
