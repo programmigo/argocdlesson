@@ -4,9 +4,8 @@ metadata:
   name: argonaut-service
 spec:
   selector:
-    app.kubernetes.io/name: argonaut
+    app: argonaut
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-
