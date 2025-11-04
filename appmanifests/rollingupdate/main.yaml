@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argonaut-simple-rollingupdate-service
+spec:
+  selector:
+    app: argonaut-simple-rollingupdate
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argonaut-simple-rollingupdate-deployment
+  labels:
+    app: argonaut-simple-rollingupdate
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: argonaut-simple-rollingupdate
+  strategy: # New version will be rolled out without downtime
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: argonaut-simple-rollingupdate
+    spec:
+      containers:
+        - name: argonaut-simple-rollingupdate
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
