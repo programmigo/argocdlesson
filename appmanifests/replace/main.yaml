@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argonaut-simple-replace-service
+spec:
+  selector:
+    app: argonaut-simple-replace
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argonaut-simple-replace-deployment
+  labels:
+    app: argonaut-simple-replace
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: argonaut-simple-replace
+  strategy: # New revision will replace the old one by terminating all old pods first. Downtime will occur.
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: argonaut-simple-replace
+    spec:
+      containers:
+        - name: argonaut-simple-replace
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
