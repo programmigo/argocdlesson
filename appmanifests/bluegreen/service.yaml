@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argonaut-simple-bluegreen-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: argonaut-simple-bluegreen
+    version: blue
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
